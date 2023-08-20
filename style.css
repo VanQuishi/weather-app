@@ -1,0 +1,90 @@
+:root {
+  --headerHeight: 50px;
+  --footerHeight: 50px;
+  --mainHeight: calc(100vh - calc(var(--headerHeight) + var(--footerHeight)));
+  --yellow-bg: #f8da5b;
+  --blue-bg: #89CFF0;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  background-color: #f9fafb;
+  color: white;
+}
+
+h1,
+h2,
+h3,
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.flexCenterContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#contentWrapper{
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template: 1fr 5fr 1fr / auto;
+}
+
+#header {
+  background-color: var(--blue-bg);
+  /* height: var(--headerHeight); */
+  padding-left: 20px;
+}
+
+#main {
+  /* height: var(--mainHeight); */
+  display: grid;
+  grid-template: 1fr 2fr / 1fr 1fr;
+}
+#formWrapper{
+  grid-column: 1 / 3;
+}
+.cardWrapper{
+  padding: 1rem;
+}
+.card{
+  height: 100%;
+  width: 100%;
+  background-color: #f4f6fc;
+  color: #b1bbca;
+}
+.cardTitle{
+  background-color: var(--blue-bg);
+  color: white;
+}
+.cardContent{
+  display: grid;
+  grid-template: auto / 1fr 2fr;
+  padding: 1rem;
+}
+.cardContent ul{
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+
+#footer {
+  background-color: var(--blue-bg);
+  /* height: var(--footerHeight); */
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}

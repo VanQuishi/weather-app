@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="contentWrapper">
+    <div class="flexCenterContainer" id="header">
+      <h1>Weather App</h1>
+    </div>
+    <div id="main">
+      <div class="flexCenterContainer" id="formWrapper">
+        <form action="" id="searchForm">
+          <input type="text" name="location" id="locationInput" required/>
+          <button type="submit" id="searchBtn">Search</button>
+        </form>
+      </div>
+      <div class="flexCenterContainer cardWrapper">
+        <div class="card">
+          <div class="flexCenterContainer cardTitle">
+            <h2 id="cityName">New York</h2>
+          </div>
+          <div class="cardContent">
+            <div>
+              <ul>
+                <li>Name:</li>
+                <li>Condition:</li>
+                <li>Temperature:</li>
+                <li>UV:</li>
+              </ul>
+            </div>
+            <div>
+              <ul>
+                <li id="nameInfo"></li>
+                <li id="condtInfo"></li>
+                <li id="tempInfo"></li>
+                <li id="uvInfo"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flexCenterContainer cardWrapper">
+        <div class="card"></div>
+      </div>
+      
+    </div>
+    <div class="flexCenterContainer" id="footer">
+      <a href="https://www.weatherapi.com/" title="Free Weather API"><img src='//cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com" border="0"></a>
+    </div>
+  </div>
+  
+
+  
+  <script src="app.js"></script>
+</body>
+</html>
