@@ -14,7 +14,11 @@ class ForeCast {
   }
 }
 
-const API_KEY = "5b89fe19c762410cb0d193414231908";
+const conditionsList = ['sunny', 'clear', 'cloudy', 'overcast', 'mist', 'rain', 'snow',
+                        'sleet', 'freezing', 'thunder', 'blizzard', 'fog', 'drizzle', 'ice'];
+const WEATHER_KEY = "5b89fe19c762410cb0d193414231908";
+const GIF_KEY = "9U5KpdFWC8vK9OToRJVXOV5t733744er";
+
 const searchForm = document.getElementById("searchForm");
 const locationInput = document.getElementById("locationInput");
 const searchBtn = document.getElementById("searchBtn");
@@ -24,15 +28,15 @@ const nameInfo = document.getElementById("nameInfo");
 const condtInfo = document.getElementById("condtInfo");
 const tempInfo = document.getElementById("tempInfo");
 const uvInfo = document.getElementById("uvInfo");
+const weatherGIF = document.getElementById("weatherGIF");
 
-var todayForeCast = new ForeCast();
 locationInput.value = "London"; //default
 
 async function getWeatherAPIData(location) {
   try {
-    var response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${location}`, {mode: 'cors'});
+    var response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${WEATHER_KEY}&q=${location}`, {mode: 'cors'});
     var data = await response.json();
-    console.log(data);
+    console.log('get', data);
     return data;
   } catch(err) {
     return err;
@@ -40,17 +44,30 @@ async function getWeatherAPIData(location) {
 }
 
 async function parseForeCast(location) {
-  getWeatherAPIData(location)
-  .then((data) => {
+  try {
+    var data = await getWeatherAPIData(location);
     let curr = data.current;
     let loc = data.location;
-    todayForeCast.name = data.location.name;
-    todayForeCast = new ForeCast(loc.name, curr.condition.text, curr.temp_c, curr.temp_f, curr.uv);
-    console.log({todayForeCast});
-  })
-  .catch((err) => {
+    var todayForeCast = new ForeCast(loc.name, curr.condition.text, curr.temp_c, curr.temp_f, curr.uv);
+    return todayForeCast;
+  } catch(err) {
     console.log(err);
-  }); 
+  }
+}
+
+const parseForeCast2 = (location) => {
+  return new Promise((resolve, reject) => {
+    getWeatherAPIData(location)
+    .then((data) => {
+      let curr = data.current;
+      let loc = data.location;
+      var todayForeCast = new ForeCast(loc.name, curr.condition.text, curr.temp_c, curr.temp_f, curr.uv);
+      resolve(todayForeCast);
+    })
+    .catch((err) => {
+      reject(err);
+    })
+  })
 }
 
 function populateWeatherCard(foreCastObj) {
@@ -61,19 +78,50 @@ function populateWeatherCard(foreCastObj) {
   uvInfo.innerHTML = foreCastObj.uv;
 }
 
+async function getGifUrl(word) {
+  try {
+    var response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${GIF_KEY}&s=${word}`, {mode: 'cors'});
+    var gifData = await response.json();
+    var url = gifData.data.images.original.url;
+    console.log('get', url);
+    return url;
+  } catch(err) {
+    return err;
+  }
+}
+
+function findConditionWord(condition) {
+  var keyword = "weather";
+
+  keyword = conditionsList.find((item) => condition.toLowerCase().includes(item));
+
+  return keyword;
+}
+
+function populateGIF(condition) {
+  var word = findConditionWord(condition);
+  getGifUrl(word)
+  .then((url) => {
+    weatherGIF.src = url;
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   parseForeCast(locationInput.value)
-  .then(() => {
-    console.log("after parse", todayForeCast);
+  .then((todayForeCast) => {
     populateWeatherCard(todayForeCast);
+    populateGIF(todayForeCast.condition);
   });
 });
 
-document.addEventListener("DOMContentLoaded", function(){
-  // Code here waits to run until the DOM is loaded.
-  searchBtn.click();
-});
-
-//parseForeCast("danang");
-//getWeatherAPIData("danang");
+parseForeCast2(locationInput.value)
+.then((todayForeCast) => {
+  console.log("after parse", todayForeCast);
+  populateWeatherCard(todayForeCast);
+  console.log(todayForeCast.condition);
+  populateGIF(todayForeCast.condition);
+})
