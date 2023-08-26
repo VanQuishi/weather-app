@@ -26,7 +26,7 @@
             </div>
             <div class="cardContent">
               <div>
-                <ul>
+                <ul class="cardUL">
                   <li>Name:</li>
                   <li>Condition:</li>
                   <li>Temperature:</li>
@@ -34,7 +34,7 @@
                 </ul>
               </div>
               <div>
-                <ul style="color: #2e384d;">
+                <ul class="cardUL" style="color: #2e384d;">
                   <li id="nameInfo"></li>
                   <li id="condtInfo"></li>
                   <li id="tempInfo"></li>
@@ -54,11 +54,18 @@
       </div>
     </div>
     <div class="flexCenterContainer" id="footer">
-      <a href="https://www.weatherapi.com/" title="Free Weather API"><img src='//cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com" border="0"></a>
+      <div>
+        View source code on
+        <a href="https://github.com/VanQuishi/weather-app" title="Github Source Code">
+          <img src="./assets/github-mark/github-mark-white.svg" alt="" id="githubLogo">
+        </a>
+      </div>
+      <div>
+        Powered by
+        <a href="https://www.weatherapi.com/" title="Free Weather API"><img src='//cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com" border="0" id="apiLogo"></a>
+      </div>    
     </div>
   </div>
-  
-
   
   <script src="app.js"></script>
 </body>
