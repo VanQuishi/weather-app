@@ -25,7 +25,7 @@
               <h2 id="cityName">New York</h2>
             </div>
             <div class="cardContent">
-              <div>
+              <div class="cardContentChild">
                 <ul class="cardUL">
                   <li>Name:</li>
                   <li>Condition:</li>
@@ -33,11 +33,18 @@
                   <li>UV:</li>
                 </ul>
               </div>
-              <div>
+              <div class="cardContentChild">
                 <ul class="cardUL" style="color: #2e384d;">
                   <li id="nameInfo"></li>
                   <li id="condtInfo"></li>
-                  <li id="tempInfo"></li>
+                  <li id="tempInfo">
+                    <div id="tempValue"></div>
+                    <div class="tempUnitWrapper">
+                      <div class="tempBtn" id="cBtn">°C</div>
+                      <div>|</div>
+                      <div class="tempBtn" id="fBtn" style="color: #92a1b4;">°F</div>
+                    </div>
+                  </li>
                   <li id="uvInfo"></li>
                 </ul>
               </div>
@@ -56,13 +63,13 @@
     <div class="flexCenterContainer" id="footer">
       <div>
         View source code on
-        <a href="https://github.com/VanQuishi/weather-app" title="Github Source Code">
+        <a href="https://github.com/VanQuishi/weather-app" target="_blank" title="Github Source Code">
           <img src="./assets/github-mark/github-mark-white.svg" alt="" id="githubLogo">
         </a>
       </div>
       <div>
         Powered by
-        <a href="https://www.weatherapi.com/" title="Free Weather API"><img src='//cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com" border="0" id="apiLogo"></a>
+        <a href="https://www.weatherapi.com/" target="_blank" title="Free Weather API"><img src='//cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com" border="0" id="apiLogo"></a>
       </div>    
     </div>
   </div>

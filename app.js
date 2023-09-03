@@ -29,6 +29,11 @@ const condtInfo = document.getElementById("condtInfo");
 const tempInfo = document.getElementById("tempInfo");
 const uvInfo = document.getElementById("uvInfo");
 const weatherGIF = document.getElementById("weatherGIF");
+const tempValue = document.getElementById("tempValue");
+const cBtn = document.getElementById("cBtn");
+const fBtn = document.getElementById("fBtn"); 
+
+var myForeCastObj = new ForeCast("", "", "", "", "");
 
 locationInput.value = "London"; //default
 
@@ -74,7 +79,7 @@ function populateWeatherCard(foreCastObj) {
   cityName.innerHTML = foreCastObj.name;
   nameInfo.innerHTML = foreCastObj.name;
   condtInfo.innerHTML = foreCastObj.condition;
-  tempInfo.innerHTML = foreCastObj.tempC;
+  tempValue.innerHTML = foreCastObj.tempC;
   uvInfo.innerHTML = foreCastObj.uv;
 }
 
@@ -100,7 +105,7 @@ function findConditionWord(condition) {
 
 function populateGIF(condition) {
   var word = findConditionWord(condition);
-  getGifUrl(word)
+  getGifUrl(word + " weather")
   .then((url) => {
     weatherGIF.src = url;
   })
@@ -113,6 +118,8 @@ searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   parseForeCast(locationInput.value)
   .then((todayForeCast) => {
+    myForeCastObj = JSON.parse(JSON.stringify(todayForeCast));
+    console.log(myForeCastObj)
     populateWeatherCard(todayForeCast);
     populateGIF(todayForeCast.condition);
   });
@@ -120,8 +127,24 @@ searchForm.addEventListener("submit", (e) => {
 
 parseForeCast2(locationInput.value)
 .then((todayForeCast) => {
-  console.log("after parse", todayForeCast);
+  myForeCastObj = JSON.parse(JSON.stringify(todayForeCast));
   populateWeatherCard(todayForeCast);
   console.log(todayForeCast.condition);
   populateGIF(todayForeCast.condition);
 })
+
+document.addEventListener("DOMContentLoaded", function(){
+  cBtn.addEventListener("click", (e) => {
+    cBtn.style.color = "#2e384d";
+    fBtn.style.color = "#92a1b4";
+    console.log(myForeCastObj)
+    tempValue.innerHTML = myForeCastObj.tempC;
+  })
+  fBtn.addEventListener("click", (e) => {
+    fBtn.style.color = "#2e384d";
+    cBtn.style.color = "#92a1b4";
+    console.log(myForeCastObj)
+    tempValue.innerHTML = myForeCastObj.tempF;
+  })
+});
+
