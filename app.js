@@ -119,7 +119,6 @@ searchForm.addEventListener("submit", (e) => {
   parseForeCast(locationInput.value)
   .then((todayForeCast) => {
     myForeCastObj = JSON.parse(JSON.stringify(todayForeCast));
-    console.log(myForeCastObj)
     populateWeatherCard(todayForeCast);
     populateGIF(todayForeCast.condition);
   });
@@ -129,7 +128,6 @@ parseForeCast2(locationInput.value)
 .then((todayForeCast) => {
   myForeCastObj = JSON.parse(JSON.stringify(todayForeCast));
   populateWeatherCard(todayForeCast);
-  console.log(todayForeCast.condition);
   populateGIF(todayForeCast.condition);
 })
 
@@ -137,13 +135,11 @@ document.addEventListener("DOMContentLoaded", function(){
   cBtn.addEventListener("click", (e) => {
     cBtn.style.color = "#2e384d";
     fBtn.style.color = "#92a1b4";
-    console.log(myForeCastObj)
     tempValue.innerHTML = myForeCastObj.tempC;
   })
   fBtn.addEventListener("click", (e) => {
     fBtn.style.color = "#2e384d";
     cBtn.style.color = "#92a1b4";
-    console.log(myForeCastObj)
     tempValue.innerHTML = myForeCastObj.tempF;
   })
 });
